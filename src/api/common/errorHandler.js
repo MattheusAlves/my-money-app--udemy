@@ -1,5 +1,5 @@
 const _= require('lodash')
-
+//Midleware
 module.exports = (req,res,next) =>{
     const bundle = res.locals.bundle
     if(bundle.errors){

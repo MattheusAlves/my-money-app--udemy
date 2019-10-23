@@ -3,6 +3,7 @@ const errorHandler = require('../common/errorHandler')
 
 BillingCycle.methods(['get','post','put','delete'])
 BillingCycle.updateOptions({new:true,runValidators:true})
+//Adiciona o middleware(Utilizar before para auth?)
 BillingCycle.after('post',errorHandler).after('put',errorHandler)
 BillingCycle.route('count',(req,res,next)=>{
     BillingCycle.count((error,value)=>{
@@ -13,7 +14,7 @@ BillingCycle.route('count',(req,res,next)=>{
         }
     })
 })
-
+//projeta e agrupa os débitos e créditos, oculta o id
 BillingCycle.route('summary',(req,res,next) =>{
     BillingCycle.aggregate({
         $project:{credit:{$sum:"$credits.value"},debt: {$sum:"$debts.value"}}
